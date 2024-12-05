@@ -1,0 +1,410 @@
+=-=-=-=-=-=-=-=-=-=-=
+-- «·—»ÿ »Ì‰ «·Ãœ«Ê·
+=-=-=-=-=-=-=-=-=-=-=
+select * from department;
+
+insert into department(deptno,name)
+values (50,'IT');
+
+rollback;
+
+-- ÿ—Ìﬁ… «·—»ÿ »Ì‰ ÃœÊ·Ì‰ »≈” Œœ«„ Ã„·… «·WHERE
+SELECT  MYX.X, MYY.Y
+FROM MYX, MYY
+WHERE MYX.X = MYY.Y;
+
+
+
+
+-- ‰›” «·‰ ÌÃ… «·”«»ﬁ… »≈” Œœ«„ «·—»ÿ „‰ Œ·«· «·InnerJoin
+SELECT MYX.X, MYY.Y
+FROM MYX INNER JOIN MYY ON (MYX.X = MYY.Y);
+
+SELECT * FROM MYX;
+
+SELECT * FROM MYY;
+
+-- —»ÿ ÃœÊ·Ì‰ »ÕÌÀ  ŸÂ— ﬂ· ﬁÌ„ «·ÃœÊ· «·√Ì”— Ê›ﬁÿ «·ﬁÌ„ «·„‘ —ﬂ… „‰ «·ÃœÊ· «·√Ì„‰
+SELECT MYX.X
+FROM MYX LEFT OUTER JOIN MYY ON (MYX.X = MYY.Y);
+
+-- ‰›” «·Ã„·… «·”«»ﬁ… ·ﬂ‰ ·· Ê÷ÌÕ »‰ «∆Ã «·—»ÿ „‰ Œ·«· ≈ŸÂ«— ÕﬁÊ· „‰ ﬂ·« «·ÃœÊ·Ì‰
+SELECT MYX.X, MYY.Y, myy.z
+FROM MYX LEFT OUTER JOIN MYY ON (MYX.X = MYY.Y);
+
+-- —»ÿ ÃœÊ·Ì‰ »ÕÌÀ  ŸÂ— ﬂ· ﬁÌ„ «·ÃœÊ· «·√Ì„‰ Ê›ﬁÿ «·ﬁÌ„ «·„‘ —ﬂ… „‰ «·ÃœÊ· «·√Ì”—
+SELECT MYX.X, MYY.Y
+FROM MYX RIGHT OUTER JOIN MYY ON (MYX.X = MYY.Y);
+
+SELECT *
+FROM MYX LEFT OUTER JOIN MYY ON (MYX.X = MYY.Y);
+
+
+
+-- —»ÿ ÃœÊ·Ì‰ »≈” Œœ«„ «Œ ’«— ·√”„ «·ÃœÊ·
+SELECT  M.X
+FROM MYX M, MYY N
+WHERE M.X = N.Y;
+
+
+x : a,b,c,f,h
+y : a,d,e,f,k
+
+
+-- —»ÿ ÃœÊ·Ì‰ »≈” Œœ«„ «·œ„Ã «·ﬂ«„· ·ﬁÌ„ ﬂ·« «·ÃœÊ·Ì‰
+SELECT MYX.X, MYY.Y
+FROM MYX FULL OUTER JOIN MYY ON (MYX.X = MYY.Y);
+
+-- «Œ Ì«— ﬂ· «·ﬁÌ„ «·„„ﬂ‰… »«·—»ÿ »Ì‰ «·ÃœÊ·Ì‰
+SELECT  MYX.X, MYY.Y
+FROM MYX, MYY;
+
+-- ‰›” «·Ã„·… «·”«»ﬁ… ·≈Œ Ì«— ﬂ· «·ﬁÌ„ «·„„ﬂ‰… »≈” Œœ«„ Ã„·… —»ÿ
+SELECT MYX.X,myy.y
+FROM MYX CROSS JOIN  MYY; 
+
+-- ·Ê €Ì—‰« √”„ «·Õﬁ· ›Ì «·ÃœÊ· MYY ·ÌﬂÊ‰ ‰›” √”„ «·Õﬁ· ›Ì «·ÃœÊ· «·À«‰Ì MYX
+-- »€—÷  Ã—»… Ã„·… «·—»ÿ «·ÿ»Ì⁄Ì
+ALTER TABLE MYY RENAME COLUMN Y TO X;
+
+-- „«œ«„ «·ÃœÊ·Ì‰ ·Â„« ‰›” √”„ «·Õﬁ· «·„‘ —ﬂ° Ì„ﬂ‰ «” Œœ«„ «·Õﬁ· œÊ‰  ”»ÌﬁÂ »√”„ «·ÃœÊ·
+-- »≈” Œœ«„ Ã„·… «·NATURAL JOIN
+SELECT X
+FROM MYX NATURAL JOIN  MYY; 
+
+
+=-=-=-=-=-=-=-=-=-=-=
+-- √„À·… ⁄·Ï SUB QUIERY
+=-=-=-=-=-=-=-=-=-=-=
+
+select * from employee;
+
+select * from department;
+
+-- «” ⁄«œ… »Ì«‰«  «·„ÊŸ›Ì‰ «·⁄«„·Ì‰ ›Ì ‰ÌÊÌÊ—ﬂ
+select e.EMPNO, e.NAME, d.LOCATION
+from   employee e, department d
+where d.DEPTNO = e.DEPTNO
+          and d.LOCATION LIKE 'NEW Y%';
+          
+select * 
+from employee
+where deptno in (select d.deptno
+                 from department d
+                 where d.location like 'NEW%');
+
+
+
+
+-- «” ⁄«œ… «·√ﬁ”«„ «·€Ì— ›⁄«·…
+SELECT D.NAME, D.LOCATION, D.DEPTNO
+FROM    DEPARTMENT D
+WHERE D.DEPTNO NOT IN (SELECT DEPTNO 
+                        FROM EMPLOYEE);
+                        
+
+-- «” ⁄«œ… «·√ﬁ”«„ «·›⁄«·… («· Ì ›ÌÂ« „ÊŸ›Ì‰)
+-- «·›⁄«·…  ⁄‰Ì «·√ﬁ”«„ «··Ì ›ÌÂ« „ÊŸ›Ì‰ ›⁄·«
+SELECT D.NAME, D.LOCATION, D.DEPTNO
+FROM    DEPARTMENT D
+WHERE D.DEPTNO  IN (SELECT DEPTNO FROM EMPLOYEE);
+
+
+
+
+
+-- «” ⁄«œ… »Ì«‰«  «·„ÊŸ› ’«Õ» √⁄·Ï —« » ›Ì „œÌ‰… œ«·«”
+select *
+from EMPLOYEE
+where SALARY = ( select max(SALARY)
+                  from employee
+                where deptno = (select DEPTNO
+                                 from department
+                                  where location = 'DALLAS'));
+                                  
+
+-- Â‰« —Ã⁄ ·Ì √⁄·Ï —« » ·ﬂ‰ œÊ‰ »Ì«‰«  «·„ÊŸ›
+SELECT MAX(E.SALARY)
+FROM EMPLOYEE E, DEPARTMENT D
+WHERE E.DEPTNO = D.DEPTNO AND D.LOCATION = 'DALLAS';
+
+
+-- ·Ì”  Õ· ··”ƒ«· √Ì÷«
+select A.NAME,A.EMPNO,A.SALARY, MAX(A.SALARY)
+from employee A, department d
+where A.deptno = d.deptno
+        and d.location = 'DALLAS'
+GROUP BY A.NAME,A.EMPNO,A.SALARY;
+
+
+                                  
+-- ÿ—Ìﬁ… √Œ—Ï ··Õ·                                  
+select EMPNO,NAME
+from EMPLOYEE
+where SALARY = ( select max(E.SALARY)
+                  from employee E,DEPARTMENT D
+                  WHERE D.DEPTNO = E.DEPTNO
+                  AND D.LOCATION = 'DALLAS');
+                  
+          
+
+                  
+-- «” —Ã⁄ Ã„Ì⁄ «·„ÊŸ›Ì‰ «··Ì „œÌ—Â„ √”„Â KING
+select * 
+from employee
+WHERE BOSS = (SELECT EMPNO
+              FROM EMPLOYEE
+              WHERE NAME = 'KING');
+              
+-- Õ· ¬Œ—
+SELECT * 
+FROM EMPLOYEE M, EMPLOYEE E
+WHERE E.BOSS = M.EMPNO AND M.NAME = 'KING';   
+              
+
+              
+ -- «” —Ã⁄ »Ì«‰«  «·„ÊŸ›Ì‰ «·–Ì‰ Â„„œ—«¡ ·√Õœ „«             
+SELECT *
+FROM EMPLOYEE 
+WHERE EMPNO in (SELECT DISTINCT BOSS
+                      FROM EMPLOYEE);
+                      
+-- «·”ƒ«· «·”«»ﬁ »ÿ—Ìﬁ… √Œ—Ï
+SELECT *
+FROM EMPLOYEE 
+WHERE EMPNO = ANY (SELECT DISTINCT BOSS
+                      FROM EMPLOYEE);
+
+
+
+-- «” —Ã⁄ »Ì«‰«  «·„ÊŸ›Ì‰ «·–Ì‰ ·«ÌœÌ—Ê‰ √Õœ
+SELECT *
+FROM EMPLOYEE 
+WHERE EMPNO NOT in (SELECT DISTINCT BOSS
+                      FROM EMPLOYEE
+                      WHERE BOSS <> EMPNO);
+                      
+-- «·›«—ﬁ »«·”ÿ— «·√ŒÌ— Êﬂ·„… not
+
+
+
+-- «” —Ã⁄ ﬂ· «·„ÊŸ›Ì‰ «·–Ì‰ ·Â„ ‰›” ÊŸÌ›… «·„ÊŸ› —ﬁ„ 7844
+SELECT * 
+FROM EMPLOYEE
+WHERE JOB IN (SELECT JOB 
+                FROM EMPLOYEE 
+                WHERE EMPNO = 7844);
+
+-- «” —Ã⁄ Ã„Ì⁄ «·„ÊŸ›Ì‰ «··Ì —« »Â„ √⁄·Ï „‰ «·„ÊŸ› ALLEN
+SELECT *
+FROM EMPLOYEE
+WHERE SALARY > ALL (SELECT SALARY FROM EMPLOYEE WHERE NAME = 'ALLEN');
+
+
+-- ÿ—Ìﬁ… √Œ—Ï
+SELECT EMPNO,NAME,JOB,SALARY
+FROM EMPLOYEE
+WHERE SALARY > ANY (SELECT SALARY
+                    FROM EMPLOYEE
+                    WHERE NAME = 'ALLEN');
+                    
+                    
+-- SAME RESULT
+SELECT EMPNO,NAME,JOB,SALARY
+FROM EMPLOYEE
+WHERE SALARY >  (SELECT SALARY
+                    FROM EMPLOYEE
+                    WHERE NAME = 'ALLEN');
+
+
+
+-- ·Ê ÿ·»  »Ì«‰«  «·„ÊŸ›Ì‰ «··Ì √ﬁ· „‰ ¬·‰
+select * 
+from employee 
+where salary < ( select salary from employee where name = 'ALLEN' );
+
+
+=-=-=-=-=-=-=-=-=-=-=
+-- AGGREGATION FUNCTION
+=-=-=-=-=-=-=-=-=-=-=
+SELECT * FROM EMPLOYEE;
+
+
+
+-- ·Õ”«» „ ”Êÿ «·—Ê« » ·ﬂ«›… «·„ÊŸ›Ì‰
+SELECT AVG(SALARY)
+FROM EMPLOYEE;
+
+-- «Õ ”«» „ Ê”ÿ «·—Ê« » ›Ì ﬂ· ﬁ”„
+SELECT DEPTNO, AVG(SALARY) 
+FROM EMPLOYEE
+GROUP BY DEPTNO;
+
+
+-- ·Ê √÷›‰« Õﬁ· ¬Œ— Ì⁄ÿÌ‰«  ›’Ì· √ﬂ»—
+-- „À·« ‰—€» »„⁄—›… „ Ê”ÿ «·—Ê« » ·ﬂ· ÊŸÌ›… ›Ì ﬂ· ﬁ”„ ⁄·Ï Õœ…
+-- „„ﬂ‰ «” Œœ«„ ORDER BY „⁄Â« ·ﬂ‰  ﬂÊ‰ »«·√ŒÌ—
+SELECT DEPTNO,JOB, AVG(SALARY)
+FROM EMPLOYEE
+GROUP BY DEPTNO,JOB
+ORDER BY 1;
+
+-- «·ÊŸ«∆› «·Õ”«»Ì… «·„” Œœ„… »‘ﬂ· „ ﬂ—— ÂÌ
+-- √⁄·Ï ﬁÌ„… Ê√ﬁ·° Ê«·„Ã„Ê⁄° Ê«·„ Ê”ÿ° Ê⁄œœ «·ÕﬁÊ· «·œ«Œ·… ›Ì «·Õ”«»
+-- ·Ê √—œ‰« ﬂ· «·⁄„·Ì«  ⁄·Ï „Ã„Ê⁄ «·„ÊŸ›Ì‰
+SELECT MAX(SALARY), MIN(SALARY), SUM(SALARY), AVG(SALARY), COUNT(salary)
+FROM EMPLOYEE;
+
+-- ·Ê —€»‰« »ﬂ· «·⁄„·Ì«  ⁄·Ï „Ã„Ê⁄ «·„ÊŸ›Ì‰ ›Ì ﬂ· ﬁ”„
+SELECT DEPTNO,MAX(SALARY), MIN(SALARY), SUM(SALARY), AVG(SALARY), COUNT(*)
+FROM EMPLOYEE
+GROUP BY DEPTNO;
+
+select to_char(1500.150015001500,'9999.99')
+from dual;
+
+
+
+SELECT DEPTNO,MAX(SALARY), MIN(SALARY), SUM(SALARY), to_char(AVG(SALARY),'9999.99'), COUNT(*)
+FROM EMPLOYEE
+GROUP BY DEPTNO;
+
+
+
+-- =-=-=-=-=-=-=-=-
+select *
+from mysample;
+
+select *
+from myexams;
+
+select *
+from mycars;
+
+
+-- =-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+-- ·≈” »œ«· ‰’ ﬂ·„… "»‰" »„”«›…
+select full_name, replace(full_name,'»‰', ' ')
+from mysample;
+
+--  »ﬁÏ „‘ﬂ·… √‰ √”„ „À· »‰œ— Ì „ ﬁ’Â
+-- «·Õ· √‰ Ì „ «” »œ«· ‰’ " »‰ " »Ê÷⁄ „”«› Ì‰ ﬁ»· Ê»⁄œ «·ﬂ·„…
+select full_name, replace(full_name,' »‰ ', ' ')
+from mysample;
+
+-- ·⁄ﬂ” Â–« «· ⁄œÌ· ›Ì «·ÃœÊ· Ì„ﬂ‰ «” Œœ«„ 
+-- update
+UPDATE MYSAMPLE
+SET FULL_NAME = replace(full_name,' »‰ ', ' ');
+
+SELECT * FROM MYSAMPLE;
+
+-- ·≈⁄ „«œ «· ⁄œÌ· »‘ﬂ· ‰Â«∆Ì
+COMMIT;
+
+
+-- ·≈ﬁ ’«· «·√”„ «·√Ê· ⁄‰ »«ﬁÌ «·√”„
+
+SELECT SUBSTR(FULL_NAME,0) AS "«·√”„ ﬂ«„·«",
+        INSTR(FULL_NAME,' ') AS "„Ê÷⁄ √Ê· „”«›…",
+        SUBSTR(FULL_NAME,INSTR(FULL_NAME,' ')) AS "»«ﬁÌ «·√”„",
+        SUBSTR(FULL_NAME,0,INSTR(FULL_NAME,' ')) AS "›ﬁÿ «·√Ê·"
+FROM MYSAMPLE;
+
+-- ·Ê √—œ   Œ“Ì‰ «·√”„ «·√Ê· ›Ì «·ÃœÊ·
+UPDATE MYSAMPLE
+SET FNAME = SUBSTR(FULL_NAME,0,INSTR(FULL_NAME,' '));
+
+
+-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+select *
+from mysample;
+
+select *
+from myexams;
+
+select *
+from mycars;
+
+
+-- «·—»ÿ »Ì‰ ÃœÊ·Ì‰
+SELECT S.FULL_NAME, S.SCHOOL,s.smark, e.etype, e.emark
+FROM MYEXAMS E, MYSAMPLE S
+WHERE E.NID = S.NID;
+
+
+-- Â‰« —«Õ Ìﬂ—— «·ÿ«·» »⁄œœ ≈Œ »«—« Â «·„⁄Ì«—Ì… „‰ «·ÃœÊ· «·À«‰Ì
+-- «·‰ ÌÃ… ·‰  ﬂÊ‰ œﬁÌﬁ…
+SELECT SCHOOL, MAX(S.SMARK), MIN(S.SMARK), SUM(S.SMARK), AVG(S.SMARK), COUNT(S.SMARK)
+FROM MYEXAMS E, MYSAMPLE S
+WHERE E.NID = S.NID
+GROUP BY SCHOOL;
+
+
+-- Â‰« Ã·» «·ÿ·«» »⁄œœÂ„ «·ÕﬁÌﬁÌ ›Ì «·„œ«—”
+SELECT SCHOOL, MAX(SMARK), MIN(SMARK), SUM(SMARK), AVG(SMARK), COUNT(SMARK)
+FROM MYSAMPLE
+GROUP BY SCHOOL;
+
+
+
+-- √—€» »≈Õ ”«» œ—Ã… «·„œ—”… „⁄ «·œ—Ã«  «·„⁄Ì«—Ì… ﬂ„Ã„Ê⁄
+-- ·Ê ‰›–  «·Ã„·… ﬂ„« Ì·Ì ”Ì⁄ÿÌ Œÿ√ ·√‰ «·Ã„·… «·›—⁄Ì…  ı—Ãˆ⁄ √ﬂÀ— „‰ ﬁÌ„…
+SELECT S.FULL_NAME, S.SCHOOL,s.smark,
+        (SELECT e.emark 
+        FROM MYEXAMS E 
+        WHERE E.NID = S.NID AND e.etype = 1) AS "œ—Ã… «·«‰Ã·Ì“Ì",
+        (SELECT e.emark 
+        FROM MYEXAMS E 
+        WHERE E.NID = S.NID AND e.etype = 2) AS "œ—Ã… «·⁄—»Ì…"
+FROM  MYSAMPLE S;
+
+
+
+
+-- Ì„ﬂ‰ ≈⁄ »«— «·„À«· Â–« √‘„· ·√‰Â ÌÃ„⁄ ﬂ· «·œ—Ã«  «·„„ﬂ‰… „‰ «·ÃœÊ·Ì‰
+SELECT S.FULL_NAME, S.SCHOOL,
+    s.smark +
+        NVL((SELECT e.emark 
+        FROM MYEXAMS E 
+        WHERE E.NID = S.NID AND e.etype = 1),0) + 
+        NVL((SELECT e.emark 
+        FROM MYEXAMS E 
+        WHERE E.NID = S.NID AND e.etype = 2),0) AS "TOTAL"
+FROM  MYSAMPLE S;
+
+
+
+
+SELECT D.NAME, E.NAME AS "Â–« √”„ «·„ÊŸ›"
+FROM   EMPLOYEE E,DEPARTMENT D;
+
+CREATE OR REPLACE VIEW MYVIEW 
+AS
+(SELECT DEPARTMENT.NAME, EMPLOYEE.NAME AS "Â–« √”„ «·„ÊŸ›"
+FROM   EMPLOYEE ,DEPARTMENT );
+
+
+-- «·„À«· «· «·Ì ﬂ· „«Ìı„ﬂ‰ ﬂ «» Â ›Ì Ãı„·… 
+-- SELECT
+
+SELECT DEPTNO, MAX(SALARY), MIN(SALARY) ,COUNT(*)
+FROM EMPLOYEE
+WHERE BOSS IS NOT NULL -- Â‰« «·‘—Êÿ «·Œ«’… »«·ﬁÌ„ «· Ì ” ŸÂ—
+GROUP BY DEPTNO
+HAVING COUNT(*) > 3
+ORDER BY 4,1 DESC;
+
+
+CREATE OR REPLACE VIEW MYVIEW 
+IS
+(SELECT DEPTNO, MAX(SALARY), MIN(SALARY) ,COUNT(*)
+FROM EMPLOYEE
+WHERE BOSS IS NOT NULL -- Â‰« «·‘—Êÿ «·Œ«’… »«·ﬁÌ„ «· Ì ” ŸÂ—
+GROUP BY DEPTNO
+HAVING COUNT(*) > 3
+ORDER BY 4,1 DESC);
+
